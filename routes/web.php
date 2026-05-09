@@ -1,7 +1,13 @@
-<?php
-
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/customer', function () {
+    return view('dashboard.customer');
+});
+
+Route::get('/owner', function () {
+    return view('dashboard.owner');
+});
+
+Route::get('/operator', function () {
+    return view('dashboard.operator');
 });
