@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tables', function (Blueprint $table) {
-            $table->id();
+        Schema::create('table', function (Blueprint $table) {
+            $table->string('id', 11)->primary(); // Sesuai diagram
+            $table->string('table_number', 2);
+            $table->enum('status', ['Available', 'Occupied', 'Booked', 'Maintenance']);
+            $table->decimal('price_per_hour', 10, 2);
             $table->timestamps();
         });
     }
