@@ -11,3 +11,7 @@ Route::get('/owner', function () {
 Route::get('/operator', function () {
     return view('dashboard.operator');
 });
+
+Route::get('/reservation', function () {
+    return view('reservation');
+});
