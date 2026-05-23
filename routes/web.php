@@ -1,17 +1,22 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/customer', function () {
-    return view('dashboard.customer');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/owner', function () {
-    return view('dashboard.owner');
+Route::get('/dashboard', function () {
+    $tables = \App\Models\Table::all(); 
+    
+    return view('dashboard', compact('tables'));
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/operator', function () {
-    return view('dashboard.operator');
-});
-
-Route::get('/reservation', function () {
-    return view('reservation');
-});
+require __DIR__.'/auth.php';
