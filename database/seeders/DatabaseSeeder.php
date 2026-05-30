@@ -14,24 +14,24 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'id' => 'USR001',
+            'id' => 'USR002',
             'name' => 'Maverick Rafael Tanadi',
-            'email' => 'Maverick@cuemaster.com',
-            'password' => bcrypt('my116688'),
-            'role' => 'owner',
+            'email' => 'admin@cuemaster.com',
+            'password' => bcrypt('password123'),
+            'role' => 'admin',
         ]);
         User::create([
             'id' => 'USR001',
             'name' => 'Gilang Ardiwilaga',
-            'email' => 'Gilang@cuemaster.com',
+            'email' => 'owner@cuemaster.com',
             'password' => bcrypt('password123'),
             'role' => 'owner',
         ]);
         User::create([
-            'id' => 'USR002',
-            'name' => 'Lev Kravchenko',
-            'email' => 'customer@dummy.com',
-            'password' => bcrypt('password123'),
+            'id' => 'USR003',
+            'name' => 'Adrian',
+            'email' => 'customer@cuemaster.com',
+            'password' => bcrypt('password'),
             'role' => 'pelanggan',
         ]);
 
