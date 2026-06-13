@@ -9,4 +9,9 @@ class Feedback extends Model
     protected $table = 'Feedback';
     protected $keyType = 'string';
     public $incrementing = false;
+
+    protected $fillable = [
+    'customer_name',
+    'message'
+    ];
 }
