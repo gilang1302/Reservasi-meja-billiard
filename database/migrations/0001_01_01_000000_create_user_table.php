@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('password', 255); // Panjang 255 untuk keamanan hash
             $table->string('phone', 15)->nullable();
             $table->enum('member_type', ['Bronze', 'Gold', 'Platinum'])->nullable();
-            $table->integer('member_poin')->nullable();
+            $table->integer('member_poin')->nullable()->default(0);
             $table->enum('role', ['owner', 'kasir', 'pelanggan'])->nullable();
+            $table->integer('total_hours_played')->default(0);
+            $table->string('avatar')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
