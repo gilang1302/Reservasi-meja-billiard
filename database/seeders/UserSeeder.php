@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         // 1. Owner
         User::create([
             'id'          => 'US' . strtoupper(Str::random(9)),
-            'name'        => 'Gilang Owner',
+            'name'        => 'Stepanus Owner',
             'email'       => 'owner@cuemaster.com',
             'password'    => Hash::make('password123'),
             'phone'       => '081234567890',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         // 2. Kasir (Operator)
         User::create([
             'id'          => 'US' . strtoupper(Str::random(9)),
-            'name'        => 'Stepanus Kasir',
+            'name'        => 'Daud Kasir',
             'email'       => 'kasir@cuemaster.com',
             'password'    => Hash::make('password123'),
             'phone'       => '081234567891',
@@ -40,8 +40,8 @@ class UserSeeder extends Seeder
         // 3. Pelanggan Platinum
         User::create([
             'id'          => 'US' . strtoupper(Str::random(9)),
-            'name'        => 'Maverick Rafael',
-            'email'       => 'maverick@gmail.com',
+            'name'        => 'Gilang',
+            'email'       => 'gilang@gmail.com',
             'password'    => Hash::make('password123'),
             'phone'       => '081234567892',
             'role'        => 'pelanggan',
@@ -53,8 +53,8 @@ class UserSeeder extends Seeder
         // 4. Pelanggan Gold
         User::create([
             'id'          => 'US' . strtoupper(Str::random(9)),
-            'name'        => 'Syahrial Achmad',
-            'email'       => 'syahrial@gmail.com',
+            'name'        => 'Maverick',
+            'email'       => 'maverick@gmail.com',
             'password'    => Hash::make('password123'),
             'phone'       => '081234567893',
             'role'        => 'pelanggan',
@@ -66,8 +66,8 @@ class UserSeeder extends Seeder
         // 5. Pelanggan Bronze
         User::create([
             'id'          => 'US' . strtoupper(Str::random(9)),
-            'name'        => 'Daud Panjaitan',
-            'email'       => 'daud@gmail.com',
+            'name'        => 'Syahrial',
+            'email'       => 'syahrial@gmail.com',
             'password'    => Hash::make('password123'),
             'phone'       => '081234567894',
             'role'        => 'pelanggan',

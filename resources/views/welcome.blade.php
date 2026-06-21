@@ -180,10 +180,10 @@
             <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400">Disusun Oleh Kelompok PDPL:</span>
             <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-[11px] text-slate-400 font-semibold max-w-xs mx-auto text-left">
                 <span>2272024 Gilang Ardiwilaga</span>
+                <span>2272040 Daud Panjaitan</span>
                 <span>2372006 Stepanus Sugianto</span>
                 <span>2372056 Maverick Rafael T.</span>
                 <span>2372059 Syahrial Achmad</span>
-                <span>2272040 Daud Panjaitan</span>
             </div>
         </div>
         <p class="pt-4 border-t border-slate-900/50 text-[10px] max-w-xs mx-auto">
