@@ -18,7 +18,10 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->decimal('total_price', 10, 2);
-            $table->string('status', 45);
+            $table->enum('price_type', ['normal', 'peak', 'member_discount'])->default('normal');
+            $table->enum('status', ['Pending', 'Confirmed', 'Active', 'Completed', 'Cancelled'])->default('Pending');
+            $table->integer('extended_count')->default(0); // berapa kali extend
+            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('booking');
     }
 };
