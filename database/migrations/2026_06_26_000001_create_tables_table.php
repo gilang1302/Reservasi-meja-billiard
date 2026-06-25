@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->string('id', 11)->primary();
             $table->string('table_number', 2);
-            $table->enum('status', ['Available', 'Occupied', 'Booked', 'Maintenance']);
+            $table->enum('status', ['Available', 'Occupied', 'Booked', 'Maintenance'])->default('Available');
             $table->decimal('price_per_hour', 10, 2);
             $table->timestamps();
         });

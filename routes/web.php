@@ -1,51 +1,54 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\TableController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\FeedbackController;
-
+// Guest Route
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        if (in_array(Auth::user()->role, ['admin', 'owner', 'kasir'])) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('reservations.index');
+    }
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    $tables = \App\Models\Table::all();
-
-    return view('dashboard', compact('tables'));
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+// Authenticated Customer Routes
+Route::middleware(['auth'])->group(function () {
+    // Profile Management (Breeze defaults)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Booking & Calendar
+    Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::get('/reservations/calendar', [ReservationController::class, 'calendar'])->name('reservations.calendar');
+    Route::get('/reservations/calendar/data', [ReservationController::class, 'calendarData'])->name('reservations.calendar.data');
+    Route::post('/reservations/{id}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
+
+    // Payments Strategy Checkout & Confirmation
+    Route::get('/payments/{id}/pay', [PaymentController::class, 'pay'])->name('payments.pay');
+    Route::post('/payments/{id}/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
 });
 
-Route::get('/booking', [BookingController::class, 'index']);
-Route::get('/booking/create', [BookingController::class, 'create']);
-Route::post('/booking', [BookingController::class, 'store']);
-Route::get('/booking/{id}/edit', [BookingController::class, 'edit']);
-Route::put('/booking/{id}', [BookingController::class, 'update']);
-Route::delete('/booking/{id}', [BookingController::class, 'destroy']);
-
-Route::get('/table', [TableController::class, 'index']);
-Route::get('/table/create', [TableController::class, 'create']);
-Route::post('/table', [TableController::class, 'store']);
-Route::get('/table/status/{id}', [TableController::class, 'updateStatus']);
-
-Route::get('/transaction', [TransactionController::class, 'index']);
-Route::get('/transaction/{id}', [TransactionController::class, 'show']);
-Route::get('/transaction/approve/{id}', [TransactionController::class, 'approve']);
-
-Route::get('/inventory', [InventoryController::class, 'index']);
-Route::post('/inventory', [InventoryController::class, 'store']);
-Route::put('/inventory/{id}', [InventoryController::class, 'update']);
-
-Route::get('/feedback', [FeedbackController::class, 'index']);
-Route::post('/feedback', [FeedbackController::class, 'store']);
+// Authenticated Admin/Staff Routes
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/reservations/{id}/status', [AdminController::class, 'updateReservationStatus'])->name('admin.reservations.status');
+    Route::get('/payments', [AdminController::class, 'payments'])->name('admin.payments');
+    Route::post('/payments/{id}/approve', [AdminController::class, 'approvePayment'])->name('admin.payments.approve');
+    Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    
+    // Table Management
+    Route::get('/tables', [AdminController::class, 'tables'])->name('admin.tables');
+    Route::post('/tables/{id}/status', [AdminController::class, 'updateTableStatus'])->name('admin.tables.status');
+});
 
 require __DIR__.'/auth.php';

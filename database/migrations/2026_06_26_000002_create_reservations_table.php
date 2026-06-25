@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
-            $table->string('id', 11)->primary();
+        Schema::create('reservations', function (Blueprint $table) {
+            $table->string('id', 20)->primary(); // e.g. RES-YYYYMMDD-XXXX
             $table->string('user_id', 11);
             $table->string('table_id', 11);
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->decimal('total_price', 10, 2);
-            $table->string('status', 45);
+            $table->enum('status', ['Pending', 'Confirmed', 'Cancelled'])->default('Pending');
+            $table->enum('payment_method', ['QRIS', 'Transfer Bank', 'Cash']);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
-            $table->foreign('table_id')->references('id')->on('table')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('reservations');
     }
 };
