@@ -15,7 +15,7 @@ class User extends Authenticatable
     /**
      * The table associated with the model.
      */
-    protected $table = 'user';
+    protected $table = 'users';
 
     /**
      * Indicates if the IDs are auto-incrementing.

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->string('id', 11)->primary(); // Primary Key sesuai ERD
             $table->string('name', 100);
             $table->string('email', 50)->unique()->nullable();
@@ -43,7 +43,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
 
             // Definisikan relasi secara manual
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

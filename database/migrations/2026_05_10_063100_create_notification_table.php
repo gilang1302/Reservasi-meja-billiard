@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('sent_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('booking_id')->references('id')->on('booking')->onDelete('set null');
         });
     }
